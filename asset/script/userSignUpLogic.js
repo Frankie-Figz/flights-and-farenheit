@@ -68,7 +68,7 @@ $(document).ready(function(){
                     console.log(user);
                     
                     writeUserToDB(user,key);
-                    window.location.href="userSignIn.html";
+                    window.location.href="index.html";
                 }   
 
                 });
