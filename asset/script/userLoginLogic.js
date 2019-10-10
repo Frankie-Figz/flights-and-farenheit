@@ -35,7 +35,12 @@ $(document).ready(function(){
             var passwordEntered = $("#password").val().trim();
             var usernameEntered = $("#user-name").val().trim();
 
-            if(passwordValid(snapshot.val()[usernameEntered].password, passwordEntered)){
+            // If the user enters a username not in the DB then we need to catch the error in order to process the later logic
+            try{var userPassword = snapshot.val()[usernameEntered].password;}
+            catch{var userPassword = "..";}
+
+            // Check if the password entered by user is the same as the password in DB
+            if(passwordValid(userPassword, passwordEntered)){
                 var firstName = snapshot.val()[usernameEntered].firstName;
                 sessionStorage.clear();
                 sessionStorage.setItem("user-name",usernameEntered);
@@ -45,10 +50,10 @@ $(document).ready(function(){
                 window.location.href="mainpage.html";
             }
             else {
-                console.log("Sorry ! Please check the username / password entered !");
+                $(".login-validation").text("Please check the username / password entered !");
             }   
 
-            });
+        });
     }
 
     function passwordValid(a,b){

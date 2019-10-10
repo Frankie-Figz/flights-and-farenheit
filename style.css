@@ -30,3 +30,21 @@ button:hover {
   left: 0;
   z-index: 1;
 }
+
+.flight-validation{
+  color: red;
+  font-weight: bolder;
+  size: 18px;
+}
+
+.login-validation{
+  color: red;
+  font-weight: bolder;
+  size: 18px;
+}
+
+.signup-validation{
+  color: red;
+  font-weight: bolder;
+  size: 18px;
+}

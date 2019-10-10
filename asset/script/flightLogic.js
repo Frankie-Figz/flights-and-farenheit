@@ -1,8 +1,6 @@
 var currentUser = sessionStorage.getItem("user-name");
 var firstName = sessionStorage.getItem("first-name");
 
-console.log(currentUser);
-
 const firebaseConfig = {
     apiKey: "AIzaSyDORWg5o64fPN4R0Cnt1DlwC_8dWfEhI4U",
     authDomain: "flights-and-fahrenheit.firebaseapp.com",
@@ -28,7 +26,6 @@ function FlightStatusAPI(flightNumber,flightDate){
     console.log(flightNumber);
 
     // + "/" + flightDate
-
     var settings = {
       "async": true,
       "crossDomain": true,
@@ -50,11 +47,13 @@ function FlightStatusAPI(flightNumber,flightDate){
 
         // console.log(response[0].aircraft.image.url);
         console.log(response[0].aircraft.model);
-
         var flightDate = $("#date").val().trim();
 
         // Empties the detail contents of the table.
         $(".detail-flight").empty();
+
+        //Empties the content of the flight validation (resets to good)
+        $(".flight-validation").empty();
 
         var flightNumber = response[0].number;
         var aircraftModel = response[0].aircraft.model;
@@ -79,13 +78,14 @@ function FlightStatusAPI(flightNumber,flightDate){
         console.log(airportStatus);
         console.log(departureAirport);
 
-        displayFlight(flightNumber,departureAirport,arrivalAirport,arrivalTimeLocal,airportStatus,aircraftModel);
-
+        // displayFlight(flightNumber,departureAirport,arrivalAirport,arrivalTimeLocal,airportStatus,aircraftModel);
         console.log("I am here waiting to write !");
         writeNewFlightSchedule(flightNumber,destination,flightDate,currentUser,latitude,longitud,departureAirport,arrivalAirport,airportStatus,aircraftModel,arrivalTimeLocal);
 
     }).fail(function(error){
       console.log("I am here at the error validation !");
+      $(".flight-validation").text("INVALID FLIGHT # ! ");
+
       console.log(error);
     });
 }
@@ -96,7 +96,7 @@ $("#submit-flight").on("click", function(event) {
   // event.preventDefault();
 
   var flightNumber = $("#flight-number").val().trim();
-  var destination = $("#destination").val().trim();
+  // var destination = $("#destination").val().trim();
   var flightDate = $("#date").val().trim();
   
   if((currentUser !== null)){
@@ -107,7 +107,6 @@ $("#submit-flight").on("click", function(event) {
 
 // Write a scheduling to the train table
 function writeNewFlightSchedule(flightNumberInput,destinationInput,flightDateInput,userID,latInput,lonInput,DAInput, AAInput, SInput, AMInput,LTInput) {
-
   // Form the object that will be saved to DB
   // Params : Flight Number, Departure Airport, Arrival Airport, Arrival Time, Status Input, Aircraft Model are needed for redraw.
   var scheduleData = {
@@ -129,7 +128,7 @@ function writeNewFlightSchedule(flightNumberInput,destinationInput,flightDateInp
 
 // Params : Flight Number, Departure Airport, Arrival Airport, Arrival Time, Status Input, Aircraft Model.
 function displayFlight(FNInput,DAInput,AAInput,ATInput,SInput,AMInput){
-  
+  $(".detail-flight").empty();  
   var row = $("<tr>");
   row.addClass("detail-flight");
 

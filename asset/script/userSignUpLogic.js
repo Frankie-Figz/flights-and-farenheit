@@ -32,7 +32,6 @@ $(document).ready(function(){
     };
     
     //flight-number
-
     function handleSignUp(){
         
         console.log("I am here to sign up !");
@@ -52,7 +51,7 @@ $(document).ready(function(){
                 console.log('snapshot.val()',snapshot.val());
                 console.log('snapshot.val()[usernameEntered]',snapshot.val()[usernameEntered]);
                 if(snapshot.val()[usernameEntered] !== undefined){
-                    alert("Sorry ! Username already exists !");
+                    $(".signup-validation").text("Username already exists !");
                 }
                 else {
                     key = userNameInput;
@@ -61,7 +60,6 @@ $(document).ready(function(){
                     firstName: firstNameInput,
                     lastName: lastNameInput,
                     password: passwordInput}
-                    
                     
                     console.log("I am user-name " + key);
                     console.log("I am object ");
@@ -73,6 +71,10 @@ $(document).ready(function(){
 
                 });
             }
+        else{
+            $(".signup-validation").text("The Password entered does not match the check password !");
+        }
+
         }
 
     $("#submit-user").on("click", function(){

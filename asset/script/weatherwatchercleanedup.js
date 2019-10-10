@@ -8,6 +8,7 @@ $(document).ready(function () {
         messagingSenderId: "15407877860",
         appId: "1:15407877860:web:a9fe39f08a0be2871426f1"
     };
+
     //firebase.initializeApp(firebaseConfig);
     var flightArrivalLon = 0;
     var flightArrivalLat = 0;
@@ -28,15 +29,18 @@ $(document).ready(function () {
                 "x-rapidapi-key": "91517b45bamsh422e95c783d3857p157a15jsne3d2bb772529"
             }
         }
+
         $.ajax(airSettings).done(function (response) {
             var arrival = response;
             flightArrivalLat = arrival[0].arrival.airport.location.lat;
             flightArrivalLon = arrival[0].arrival.airport.location.lon;
         });
+        
         console.log("The folowing is arrival Lattitude");
         console.log(flightArrivalLat);
         console.log("The folowing is arrival Longtitude");
         console.log(flightArrivalLon);
+        
         weatherAndTime();
         //Call AJAX for weather and spit out relevant results
         function weatherAndTime() {
@@ -81,10 +85,12 @@ $(document).ready(function () {
                         $("#forecast").append("<span class='weather-text'>Forecast: </span>"+(localWeather[i].forecastDesc));
                         $("#high-temp").append("<span class='weather-text'>High Temp: </span>"+(localWeather[i].temperatureHigh + "F"));
                         $("#low-temp").append("<span class='weather-text'>Low Temp: </span>"+(localWeather[i].temperatureLow + "F"));
-                            $("#image-weather").empty();
-                            $("#clothing-item1").empty();
-                            $("#clothing-item2").empty();
-                            $("#clothing-item3").empty();
+
+                        $("#image-weather").empty();
+                        $("#clothing-item1").empty();
+                        $("#clothing-item2").empty();
+                        $("#clothing-item3").empty();
+                        
                         var condition = localWeather[i].conditions[0].display;
                         if((condition)=="Overcast"){
                             $("#image-weather").append("<img class='weather-image w-100' align:'middle' src='images/sun-and-cloud.png'/> ");
@@ -117,6 +123,7 @@ $(document).ready(function () {
                             $("#clothing-item2").append("<img class='weather-image w-100' align:'middle' src='images/Archive/clear-weather-outfit/sunnyoutfitmale02.jpg'/> ");
                             $("#clothing-item3").append("<img class='weather-image w-100' align:'middle' src='images/Archive/clear-weather-outfit/sunnyoutfitmale03.jpg'/> ");
                         }
+
                     }
                 }
             });
